@@ -69,7 +69,6 @@ class SampleListener(Leap.Listener):
                 print("Grip")
                 response = raw_input('Please enter your commit message: ')
                 r = str(response)
-                print r
                 subprocess.call(["git", "commit", "-m", r])
 
             if(hand.grab_strength < 0.2 and gripped):
