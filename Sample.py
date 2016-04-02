@@ -60,13 +60,6 @@ class SampleListener(Leap.Listener):
             direction = hand.direction
 
             # print(hand.direction)
-
-            if(hand.palm_velocity > 25 and not pushed and hand.direction.z > 40):
-                print("PUSH!")
-                pushed=  True
-                temp = subprocess.call(["git", "push"])
-                z_pos = hand.palm_position.z
-
             if(hand.grab_strength > 0.8 and not gripped):
                 gripped = True
                 pushed = False
@@ -112,10 +105,15 @@ class SampleListener(Leap.Listener):
                     subprocess.call(["git", "status"])
 
             if gesture.type == Leap.Gesture.TYPE_SWIPE:
-                swipe = SwipeGesture(gesture)
-                print "  Swipe id: %d, state: %s, position: %s, direction: %s, speed: %f" % (
-                        gesture.id, self.state_names[gesture.state],
-                        swipe.position, swipe.direction, swipe.speed)
+                # swipe = SwipeGesture(gesture)
+                # print "  Swipe id: %d, state: %s, position: %s, direction: %s, speed: %f" % (
+                #         gesture.id, self.state_names[gesture.state],
+                #         swipe.position, swipe.direction, swipe.speed)
+
+                print("PUSH!")
+                pushed=  True
+                temp = subprocess.call(["git", "push"])
+                z_pos = hand.palm_position.z
 
             if gesture.type == Leap.Gesture.TYPE_KEY_TAP:
                 keytap = KeyTapGesture(gesture)
