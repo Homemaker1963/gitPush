@@ -82,7 +82,6 @@ class SampleListener(Leap.Listener):
 
         circled = False
         
-
         # Get gestures
         for gesture in frame.gestures():
             if gesture.type == Leap.Gesture.TYPE_CIRCLE:
