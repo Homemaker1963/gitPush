@@ -62,7 +62,8 @@ class SampleListener(Leap.Listener):
             if(hand.grab_strength > 0.8 and not gripped):
                 gripped = True
                 pushed = False
-                print('\033[31m' + 'Grip: COMMIT!')
+                print('\033[32m' + 'Grip: COMMIT!')
+                print('\033[37m')
                 response = raw_input('Please enter your commit message: ')
                 r = str(response)
                 subprocess.call(["git", "commit", "-m", r])
@@ -70,7 +71,8 @@ class SampleListener(Leap.Listener):
             if(hand.grab_strength < 0.2 and gripped):
                 gripped = False
                 pushed = False
-                print("Open Hand: ADD!")
+                print('\033[32m' + "Open Hand: ADD!")
+                print('\033[37m')
                 subprocess.call(["git", "add", "-u"])
 
             # Get arm bone
