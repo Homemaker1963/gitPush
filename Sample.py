@@ -62,10 +62,10 @@ class SampleListener(Leap.Listener):
             # print(hand.direction)
 
             # if(hand.palm_position.z - z_pos > (-20) and z_pos != 0):
-            if(hand.palm_velocity > 20 and not pushed):
+            if(hand.palm_velocity > 25 and not pushed and hand.direction.z > 40):
                 print("PUSH!")
                 pushed=  True
-                subprocess.call(["git", "status"])
+                temp = subprocess.call(["git", "push"])
                 z_pos = hand.palm_position.z
 
             if(hand.grab_strength > 0.8 and not gripped):
@@ -74,13 +74,13 @@ class SampleListener(Leap.Listener):
                 print("Grip")
                 response = raw_input('Please enter your commit message: ')
                 r = str(response)
-                subprocess.call(["git", "commit", "-m", r])
+                temp = subprocess.call(["git", "commit", "-m", r])
 
             if(hand.grab_strength < 0.2 and gripped):
                 gripped = False
                 pushed = False
                 print("Open")
-                subprocess.call(["git", "add", "-u"])
+                temp = subprocess.call(["git", "add", "-u"])
 
             # Get arm bone
             arm = hand.arm
