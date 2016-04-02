@@ -77,12 +77,6 @@ class SampleListener(Leap.Listener):
                 print("Open")
                 subprocess.call(["git", "add", "-u"])
 
-            # Calculate the hand's pitch, roll, and yaw angles
-            # print "  pitch: %f degrees, roll: %f degrees, yaw: %f degrees" % (
-            #     direction.pitch * Leap.RAD_TO_DEG,
-            #     normal.roll * Leap.RAD_TO_DEG,
-            #     direction.yaw * Leap.RAD_TO_DEG)
-
             # Get arm bone
             arm = hand.arm
 
