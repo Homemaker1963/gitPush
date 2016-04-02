@@ -61,11 +61,11 @@ class SampleListener(Leap.Listener):
 
             # print(hand.direction)
 
-            # if(hand.palm_velocity > 25 and not pushed and hand.direction.z > 40):
-            #     print("PUSH!")
-            #     pushed=  True
-            #     temp = subprocess.call(["git", "push"])
-            #     z_pos = hand.palm_position.z
+            if(hand.palm_velocity > 25 and not pushed and hand.direction.z > 40):
+                print("PUSH!")
+                pushed=  True
+                temp = subprocess.call(["git", "push"])
+                z_pos = hand.palm_position.z
 
             if(hand.grab_strength > 0.8 and not gripped):
                 gripped = True
