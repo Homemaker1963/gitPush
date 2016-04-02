@@ -158,15 +158,17 @@ def main():
     # Have the sample listener receive events from the controller
     controller.add_listener(listener)
 
+    temporary = True
+
     # Keep this process running until Enter is pressed
     print "Press Enter to quit..."
-    try:
-        sys.stdin.readline()
-    except KeyboardInterrupt:
-        pass
-    finally:
-        # Remove the sample listener when done
-        controller.remove_listener(listener)
+    while(temporary):
+        try:
+            i = 3+4
+        except KeyboardInterrupt:
+            temporary = False
+    # Remove the sample listener when done
+    controller.remove_listener(listener)
 
 
 if __name__ == "__main__":
