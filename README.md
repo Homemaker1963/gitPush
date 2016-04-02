@@ -1,5 +1,5 @@
 #gitPush
-by [Austin Liu](https://github.com/aliu139), [Annie Yuan](https://github.com/annieyuan), and [Tongtong Lian](https://github.com/TTongLian)
+by [Austin Liu](https://github.com/aliu139), [Annie Yuan](https://github.com/annieyuan), [Tongtong Lian](https://github.com/TTongLian), and [Matthew Hsu](https://github.com/mahsu)
 
 ## Overview
 "Updates were rejected: use the --force"
