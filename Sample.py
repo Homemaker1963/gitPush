@@ -62,7 +62,7 @@ class SampleListener(Leap.Listener):
             if(hand.grab_strength > 0.8 and not gripped):
                 gripped = True
                 pushed = False
-                print('\033[32m' + 'Grip: COMMIT!')
+                print('\033[1;32m' + 'Grip: COMMIT!')
                 print('\033[37m')
                 response = raw_input('Please enter your commit message: ')
                 r = str(response)
@@ -71,7 +71,7 @@ class SampleListener(Leap.Listener):
             if(hand.grab_strength < 0.2 and gripped):
                 gripped = False
                 pushed = False
-                print('\033[32m' + "Open Hand: ADD!")
+                print('\033[1;32m' + "Open Hand: ADD!")
                 print('\033[37m')
                 subprocess.call(["git", "add", "-u"])
 
@@ -111,7 +111,8 @@ class SampleListener(Leap.Listener):
                 #         gesture.id, self.state_names[gesture.state],
                 #         swipe.position, swipe.direction, swipe.speed)
 
-                print("PUSH!")
+                print('\033[1;32m' + "PUSH!")
+                print('\033[37m')
                 pushed=  True
                 temp = subprocess.call(["git", "push"])
                 z_pos = hand.palm_position.z
