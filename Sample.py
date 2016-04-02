@@ -9,6 +9,7 @@
 ################################################################################
 import Leap, sys, thread, time
 import subprocess
+from colorama import init
 from Leap import CircleGesture, KeyTapGesture, ScreenTapGesture, SwipeGesture
 
 class SampleListener(Leap.Listener):
@@ -44,6 +45,7 @@ class SampleListener(Leap.Listener):
         global gripped
         global z_pos
         global pushed
+        global t
 
         # Get hands
         for hand in frame.hands:
@@ -60,7 +62,7 @@ class SampleListener(Leap.Listener):
             if(hand.grab_strength > 0.8 and not gripped):
                 gripped = True
                 pushed = False
-                print("Grip")
+                print('\033[31m' + 'Grip: COMMIT!')
                 response = raw_input('Please enter your commit message: ')
                 r = str(response)
                 subprocess.call(["git", "commit", "-m", r])
@@ -68,7 +70,7 @@ class SampleListener(Leap.Listener):
             if(hand.grab_strength < 0.2 and gripped):
                 gripped = False
                 pushed = False
-                print("Open")
+                print("Open Hand: ADD!")
                 subprocess.call(["git", "add", "-u"])
 
             # Get arm bone
@@ -145,10 +147,13 @@ def main():
     global gripped
     global z_pos
     global pushed
+    global t
 
     gripped = True
     z_pos = 0
     pushed = False
+
+    init()
 
     # Have the sample listener receive events from the controller
     controller.add_listener(listener)
