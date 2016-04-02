@@ -18,6 +18,7 @@ class SampleListener(Leap.Listener):
     state_names = ['STATE_INVALID', 'STATE_START', 'STATE_UPDATE', 'STATE_END']
 
     gripped = False
+    z_pos = 0
 
     def on_init(self, controller):
         print "Initialized"
@@ -43,9 +44,7 @@ class SampleListener(Leap.Listener):
         frame = controller.frame()
 
         global gripped
-
-        # print "Frame id: %d, timestamp: %d, hands: %d, fingers: %d, tools: %d, gestures: %d" % (
-        #       frame.id, frame.timestamp, len(frame.hands), len(frame.fingers), len(frame.tools), len(frame.gestures()))
+        global z_pos
 
         # Get hands
         for hand in frame.hands:
@@ -57,6 +56,13 @@ class SampleListener(Leap.Listener):
             # Get the hand's normal vector and direction
             normal = hand.palm_normal
             direction = hand.direction
+
+            # print(hand.direction)
+
+            if(hand.palm_position.z - z_pos > (-40) and z_pos != 0):
+                print("PUSH!")
+                subprocess.call(["git", "status"])
+                z_pos = hand.palm_position.z
 
             if(hand.grab_strength > 0.8 and not gripped):
                 gripped = True
@@ -79,36 +85,9 @@ class SampleListener(Leap.Listener):
 
             # Get arm bone
             arm = hand.arm
-            # print "  Arm direction: %s, wrist position: %s, elbow position: %s" % (
-            #     arm.direction,
-            #     arm.wrist_position,
-            #     arm.elbow_position)
-
-            # Get fingers
-            # for finger in hand.fingers:
-
-            #     print "    %s finger, id: %d, length: %fmm, width: %fmm" % (
-            #         self.finger_names[finger.type],
-            #         finger.id,
-            #         finger.length,
-            #         finger.width)
-
-            #     # Get bones
-            #     for b in range(0, 4):
-            #         bone = finger.bone(b)
-            #         print "      Bone: %s, start: %s, end: %s, direction: %s" % (
-            #             self.bone_names[bone.type],
-            #             bone.prev_joint,
-            #             bone.next_joint,
-            #             bone.direction)
-
-        # Get tools
-        # for tool in frame.tools:
-
-        #     print "  Tool id: %d, position: %s, direction: %s" % (
-        #         tool.id, tool.tip_position, tool.direction)
 
         circled = False
+        
 
         # Get gestures
         for gesture in frame.gestures():
@@ -176,7 +155,10 @@ def main():
     controller = Leap.Controller()
 
     global gripped
+    global z_pos
+
     gripped = True
+    z_pos = 0
 
     # Have the sample listener receive events from the controller
     controller.add_listener(listener)
