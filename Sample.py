@@ -163,6 +163,26 @@ def main():
 
     temporary = True
 
+    print('\033[1;4;36m')
+    print "  ________.__  __    __________             .__     "
+    print " /  _____/|__|/  |_  \______   \__ __  _____|  |__  "
+    print "/   \  ___|  \   __\  |     ___/  |  \/  ___/  |  \ "
+    print "\    \_\  \  ||  |    |    |   |  |  /\___ \|   Y  \ "
+    print " \______  /__||__|    |____|   |____//____  >___|  / "
+    print "        \/                                \/     \/  "
+    print('\033[0;37m')
+
+    print('\033[1;4;36m')
+    print("\n \n")
+    print("insert line here")
+    print("\n")
+    print("How To Use:")
+    print("Open your hand completely to git add")
+    print("Open your hand completely to git commit")
+    print("PUSH! to git push!")
+    print("\n")
+    print('\033[0;37m')
+
     # Keep this process running until Enter is pressed
     print "Press Enter to quit..."
     while(temporary):
