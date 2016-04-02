@@ -19,6 +19,7 @@ class SampleListener(Leap.Listener):
 
     gripped = False
     z_pos = 0
+    pushed = False
 
     def on_init(self, controller):
         print "Initialized"
@@ -45,6 +46,7 @@ class SampleListener(Leap.Listener):
 
         global gripped
         global z_pos
+        global pushed
 
         # Get hands
         for hand in frame.hands:
@@ -59,13 +61,16 @@ class SampleListener(Leap.Listener):
 
             # print(hand.direction)
 
-            if(hand.palm_position.z - z_pos > (-40) and z_pos != 0):
+            # if(hand.palm_position.z - z_pos > (-20) and z_pos != 0):
+            if(hand.palm_velocity > 20 and not pushed):
                 print("PUSH!")
+                pushed=  True
                 subprocess.call(["git", "status"])
                 z_pos = hand.palm_position.z
 
             if(hand.grab_strength > 0.8 and not gripped):
                 gripped = True
+                pushed = False
                 print("Grip")
                 response = raw_input('Please enter your commit message: ')
                 r = str(response)
@@ -73,6 +78,7 @@ class SampleListener(Leap.Listener):
 
             if(hand.grab_strength < 0.2 and gripped):
                 gripped = False
+                pushed = False
                 print("Open")
                 subprocess.call(["git", "add", "-u"])
 
@@ -148,9 +154,11 @@ def main():
 
     global gripped
     global z_pos
+    global pushed
 
     gripped = True
     z_pos = 0
+    pushed = False
 
     # Have the sample listener receive events from the controller
     controller.add_listener(listener)
